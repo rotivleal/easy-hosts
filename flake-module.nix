@@ -1,4 +1,3 @@
-{ easy-hosts }:
 {
   lib,
   inputs,
@@ -11,15 +10,7 @@ let
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib) types;
 
-  inherit
-    (import ./lib.nix {
-      inherit
-        lib
-        inputs
-        withSystem
-        easy-hosts
-        ;
-    })
+  inherit (import ./lib.nix { inherit lib inputs withSystem; })
     constructSystem
     mkHosts
     buildHosts
@@ -52,8 +43,6 @@ in
 {
   # module for flake-parts
   _class = "flake";
-  # re-add `_file` after that gets stripped by `import`. Improves docs and errors
-  _file = "${__curPos.file}";
 
   options = {
     easy-hosts = {
