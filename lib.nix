@@ -299,17 +299,6 @@ let
           };
         })
 
-        # if we are on darwin we need to import the nixpkgs source, its used in some
-        # modules, if this is not set then you will get an error
-        (optionals (class == "darwin") (singleton {
-          key = "easy-hosts#nixpkgs-darwin";
-          _file = "${__curPos.file}";
-
-          # without supplying an upstream nixpkgs source, nix-darwin will not be able to build
-          # and will complain and log an error demanding that you must set this value
-          nixpkgs.source = mkDefault nixpkgs;
-        }))
-
         # import any additional modules that the user has provided
         modules
       ];
